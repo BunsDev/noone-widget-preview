@@ -13,7 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@noonewallet/widget-communicator": "file:../noone-widget-communicator",
+    "@noonewallet/widget-communicator": "github:noonewallet/widget-communicator",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
     "vuetify": "^3.5.11"
