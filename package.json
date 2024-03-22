@@ -13,16 +13,19 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@noonewallet/widget-communicator": "github:noonewallet/widget-communicator",
+    "@mdi/font": "^7.4.47",
+    "@noonewallet/widget-communicator": "git+https://github.com/noonewallet/widget-communicator.git",
+    "highlight.js": "^11.9.0",
     "pinia": "^2.1.7",
     "vue": "^3.4.21",
+    "vue-code-highlight": "^0.7.8",
     "vuetify": "^3.5.11"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.3.3",
     "@tsconfig/node20": "^20.1.2",
     "@types/node": "^20.11.28",
-    "@vitejs/plugin-vue": "^5.0.4",
+    "@vitejs/plugin-vue": "^4.6.1",
     "@vue/eslint-config-prettier": "^8.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/tsconfig": "^0.5.1",
@@ -31,7 +34,7 @@
     "npm-run-all2": "^6.1.2",
     "prettier": "^3.0.3",
     "typescript": "~5.4.0",
-    "vite": "^5.1.6",
+    "vite": "^4.5.2",
     "vue-tsc": "^2.0.6"
   }
 }

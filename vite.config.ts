@@ -14,5 +14,5 @@ export default defineConfig({
     },
     preserveSymlinks: true
   },
-  base: '/noone-widget-preview/'
+  base: process.env === 'production' ? '/noone-widget-preview/' : '/'
 })
