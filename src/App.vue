@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import {onMounted} from "vue";
+import {onMounted, ref} from "vue";
 import {IframeManager, EvmConnector} from '@noonewallet/widget-communicator'
 
-let evmConnector = null
+let evmConnector = ref<EvmConnector | null>(null)
+
 onMounted(async () => {
   const iframe = new IframeManager('noone-iframe', 'https://crypto-widget.noone.io/')
   await iframe.render()
-  evmConnector = new EvmConnector(iframe)
+  evmConnector.value = new EvmConnector(iframe)
 })
 
 const getAddress = async () => {
-  const result = await evmConnector.send({
+  if (!evmConnector.value) return console.error('EvmConnector is not initialized')
+  const result = await evmConnector.value?.send({
     chainId: 1,
     method: 'getAddress'
   })
