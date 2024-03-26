@@ -23,7 +23,12 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.javascript {
+pre {
+  font-size: 0;
+}
+
+code {
   font-size: 14px;
 }
+
 </style>

@@ -40,25 +40,26 @@ const showCode = () => {
 </script>
 
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="4">
-        <v-btn variant="outlined" size="small" @click="getAddress"> Get address </v-btn>
-      </v-col>
-      <v-col cols="4">
-        <v-btn variant="outlined" size="small" prepend-icon="mdi-code-tags" @click="showCode">
-          {{ computedBtnTitle }}
-        </v-btn>
-      </v-col>
-      <v-col v-show="codeVisible">
-        <code-snippet :code="code"></code-snippet>
-      </v-col>
-      <v-col v-if="data.address">
-        <span v-if="data.address"> <b>Result:</b> {{ data.address }} </span>
-        <span v-if="data.error"> <b>Error:</b> {{ data.error }} </span>
-      </v-col>
-    </v-row>
-  </v-container>
+<v-container class="my-4 pa-0">
+  <h2 class="my-4">Get address</h2>
+  <v-row  align="center">
+    <v-col cols="4">
+      <v-btn variant="outlined" size="small" @click="getAddress"> Get address </v-btn>
+    </v-col>
+    <v-col cols="4">
+      <v-btn variant="outlined" size="small" prepend-icon="mdi-code-tags" @click="showCode">
+        {{ computedBtnTitle }}
+      </v-btn>
+    </v-col>
+    <v-col v-show="codeVisible">
+      <code-snippet :code="code"></code-snippet>
+    </v-col>
+    <v-col v-if="data.address">
+      <span v-if="data.address"> <b>Result:</b> {{ data.address }} </span>
+      <span v-if="data.error"> <b>Error:</b> {{ data.error }} </span>
+    </v-col>
+  </v-row>
+</v-container>
 </template>
 
 <style scoped></style>

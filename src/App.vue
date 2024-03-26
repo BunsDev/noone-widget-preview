@@ -38,6 +38,10 @@ const showCode = () => {}
   <v-container>
     <v-row no-gutters>
       <v-col cols="6">
+        <v-sheet>
+          <h1>Communicator Preview</h1>
+          <v-icon icon="mdi-antenna">Git</v-icon>
+        </v-sheet>
         <test-address :connector="evmConnector"></test-address>
         <v-divider></v-divider>
       </v-col>
