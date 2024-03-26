@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import {reactive} from 'vue'
+import {reactive, ref} from 'vue'
 import TestTemplate from './TestTemplate.vue'
+import { EvmConnector, type IErrorResponse } from '@noonewallet/widget-communicator'
 
 const props = defineProps<{
   connector: EvmConnector
 }>()
+let error = ref<IErrorResponse | null>(null)
 
 const data = reactive({
   result: '',
@@ -23,10 +25,10 @@ const triggerEvent = async () => {
     method: 'getBalance'
   })
   if (result.success) {
-    data.result = result.data.toString()
-    data.error = ''
+    data.result = result.data?.toString() || ''
+    error.value = null
   } else {
-    data.error = result.error
+    error.value = result.error || null
     data.result = ''
   }
 }
@@ -36,7 +38,7 @@ const triggerEvent = async () => {
 <test-template
   title="Get balance"
   :code="data.code"
-  :error="data.error"
+  :error="error"
   :result="data.result"
   @trigger-event="triggerEvent">
 </test-template>

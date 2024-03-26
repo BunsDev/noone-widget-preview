@@ -14,7 +14,9 @@ const codeEl = ref(null)
 
 onMounted(() => {
   setTimeout(() => {
-    hljs.highlightBlock(codeEl.value)
+    if (codeEl.value) {
+      hljs.highlightBlock(codeEl.value)
+    }
   }, 100)
 })
 </script>

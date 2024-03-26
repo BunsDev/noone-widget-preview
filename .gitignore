@@ -1,9 +1,6 @@
 .DS_Store
 node_modules
 /dist
-/src/app-config.js
-/src/manifest.json
-/src/styles/_pallet.scss
 # local env files
 .env
 .env.local

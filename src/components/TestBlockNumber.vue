@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import {reactive} from 'vue'
+import {reactive, ref} from 'vue'
 import TestTemplate from './TestTemplate.vue'
+import {EvmConnector, type IErrorResponse} from '@noonewallet/widget-communicator'
 
 const props = defineProps<{
   connector: EvmConnector
 }>()
 
+let error = ref<IErrorResponse | null>(null)
+
 const data = reactive({
   result: '',
-  error: '',
   code: `const result = await props.connector.send({
     chainId: 1,
     method: 'getBlockNumber'
@@ -22,10 +24,10 @@ const triggerEvent = async () => {
     method: 'getBlockNumber'
   })
   if (result.success) {
-    data.result = result.data
-    data.error = ''
+    data.result = result?.data || ''
+    error.value = null
   } else {
-    data.error = result.error
+    error.value = result.error || null
     data.result = ''
   }
 }
@@ -35,7 +37,7 @@ const triggerEvent = async () => {
 <test-template
   title="Get block number"
   :code="data.code"
-  :error="data.error"
+  :error="error"
   :result="data.result"
   @trigger-event="triggerEvent"
 >

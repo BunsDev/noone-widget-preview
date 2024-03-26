@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import {reactive} from 'vue'
+import {reactive, ref} from 'vue'
 import TestTemplate from './TestTemplate.vue'
+import {EvmConnector, type IErrorResponse} from '@noonewallet/widget-communicator'
 
 const props = defineProps<{
   connector: EvmConnector
 }>()
 
+let error = ref<IErrorResponse | null>(null)
+
 const data = reactive({
   result: '',
-  error: '',
   code: `const result = await props.connector.send({
     chainId: 1,
     method: 'getAddress'
@@ -22,11 +24,11 @@ const triggerEvent = async () => {
     method: 'getAddress'
   })
   if (result.success) {
-    data.result = result.data
-    data.error = ''
+    data.result = result.data || ''
+    error.value = null
   } else {
-    data.error = result.error
-    data.address = ''
+    error.value = result.error || null
+    data.result = ''
   }
 }
 </script>
@@ -35,7 +37,7 @@ const triggerEvent = async () => {
 <test-template
   title="Get address"
   :code="data.code"
-  :error="data.error"
+  :error="error"
   :result="data.result"
   @trigger-event="triggerEvent">
 </test-template>

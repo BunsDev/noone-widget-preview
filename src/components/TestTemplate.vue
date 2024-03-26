@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import {computed, ref, defineEmits} from 'vue'
 import CodeSnippet from './CodeSnippet.vue'
-
+import {type IErrorResponse} from '@noonewallet/widget-communicator'
 defineProps<{
   title: string
   code: string
   result?: string
-  error?: Object
+  error?: IErrorResponse | null
 }>()
 const emit = defineEmits(['trigger-event'])
 const codeVisible = ref(false)
