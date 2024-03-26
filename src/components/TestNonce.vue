@@ -11,7 +11,7 @@ const data = reactive({
   error: '',
   code: `const result = await props.connector.send({
     chainId: 1,
-    method: 'getAddress'
+    method: 'getNonce'
 })`
 })
 
@@ -19,24 +19,26 @@ const triggerEvent = async () => {
   if (!props.connector || !props.connector) return console.error('EvmConnector is not initialized')
   const result = await props.connector.send({
     chainId: 1,
-    method: 'getAddress'
+    method: 'getNonce'
   })
+  console.log('result', result)
   if (result.success) {
-    data.result = result.data
+    data.result = result.data.toString()
     data.error = ''
   } else {
     data.error = result.error
-    data.address = ''
+    data.result = ''
   }
 }
 </script>
 
 <template>
 <test-template
-  title="Get address"
+  title="Get nonce"
   :code="data.code"
   :error="data.error"
   :result="data.result"
-  @trigger-event="triggerEvent">
+  @trigger-event="triggerEvent"
+>
 </test-template>
 </template>

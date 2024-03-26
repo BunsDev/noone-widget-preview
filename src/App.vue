@@ -1,37 +1,21 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import TestAddress from './components/TestAddress.vue'
+import TestBalance from './components/TestBalance.vue'
+import TestBlockNumber from './components/TestBlockNumber.vue'
+import TestNonce from './components/TestNonce.vue'
 import { EvmConnector, IframeManager } from '@noonewallet/widget-communicator'
 
 const evmConnector = ref<EvmConnector | null>(null)
 const dataFromIframe = reactive({
-  loaded: false,
-  address: '',
-  balance: '',
-  error: '',
-  message: '',
-  hash: ''
+  loaded: false
 })
+
 onMounted(async () => {
   const iframe = new IframeManager('noone-iframe', 'http://localhost:8080/')
-  await iframe.render()
+  dataFromIframe.loaded = await iframe.render()
   evmConnector.value = new EvmConnector(iframe)
 })
-
-const getAddress = async () => {
-  if (!evmConnector.value) return console.error('EvmConnector is not initialized')
-  const result = await evmConnector.value?.send({
-    chainId: 1,
-    method: 'getAddress'
-  })
-  if (result.success) {
-    dataFromIframe.address = result.data
-  } else {
-    dataFromIframe.error = result.error
-  }
-}
-
-const showCode = () => {}
 </script>
 
 <template>
@@ -41,8 +25,15 @@ const showCode = () => {}
         <v-sheet>
           <h1>Communicator Preview</h1>
           <v-icon icon="mdi-antenna">Git</v-icon>
+          <h3>Iframe loaded: {{ dataFromIframe.loaded }}</h3>
         </v-sheet>
         <test-address :connector="evmConnector"></test-address>
+        <v-divider></v-divider>
+        <test-balance :connector="evmConnector"></test-balance>
+        <v-divider></v-divider>
+        <test-block-number :connector="evmConnector"></test-block-number>
+        <v-divider></v-divider>
+        <test-nonce :connector="evmConnector"></test-nonce>
         <v-divider></v-divider>
       </v-col>
       <v-col>
