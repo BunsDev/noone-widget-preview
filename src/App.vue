@@ -25,8 +25,15 @@ onMounted(async () => {
         <v-sheet>
           <h1>Communicator Preview</h1>
           <v-icon icon="mdi-antenna">Git</v-icon>
-          <h3>Iframe loaded: {{ dataFromIframe.loaded }}</h3>
         </v-sheet>
+        <v-row align="center">
+          <v-col>
+            <h2>Iframe loaded: {{ dataFromIframe.loaded }}</h2>
+          </v-col>
+          <v-col>
+            <p>Project on <a href="https://github.com/noonewallet/noone-widget-preview">Github <v-icon icon="mdi-github"></v-icon></a></p>
+          </v-col>
+        </v-row>
         <test-address :connector="evmConnector"></test-address>
         <v-divider></v-divider>
         <test-balance :connector="evmConnector"></test-balance>
@@ -51,5 +58,9 @@ main {
   width: 100%;
   height: 100%;
   background-color: #dadada;
+}
+
+a:hover {
+  text-decoration: none;
 }
 </style>
