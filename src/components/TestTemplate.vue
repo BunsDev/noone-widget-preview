@@ -37,15 +37,22 @@ const showCode = () => {
     <v-col v-show="codeVisible" cols="12">
       <code-snippet :code="code"></code-snippet>
     </v-col>
-    <v-col cols="12" v-if="result">
+    <v-col cols="12" v-if="result" class="result">
       <b>Result: </b><span> {{ result }}</span>
     </v-col>
-    <v-col cols="12" v-if="error">
-      <b class="text-red">Error: </b><span> {{ error }}</span>
+    <v-col cols="12" v-if="error" class="text-red">
+      <b >Error: </b><span> {{ error }}</span>
+    </v-col>
+    <v-col cols="12">
+      <slot name="fields"></slot>
     </v-col>
   </v-row>
 </v-container>
 </template>
 
-<style scoped></style>
+<style scoped>
+.result {
+  word-break: break-all;
+}
+</style>
 
