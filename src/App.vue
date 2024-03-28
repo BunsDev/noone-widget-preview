@@ -6,6 +6,7 @@ import TestBlockNumber from './components/TestBlockNumber.vue'
 import TestNonce from './components/TestNonce.vue'
 import TestSignMsg from './components/TestSignMsg.vue'
 import TestSignTx from './components/TestSignTx.vue'
+import TestChainIds from './components/TestChainIds.vue'
 import {EvmConnector, IframeManager, WalletConnector} from '@noonewallet/widget-communicator'
 const evmConnector = ref<EvmConnector | null>(null)
 const walletConnector = ref<WalletConnector | null>(null)
@@ -17,7 +18,7 @@ const dev_url = 'http://localhost:8080/'
 const prod_url = 'https://crypto-widget.noone.io/'
 
 onMounted(async () => {
-  const iframe = new IframeManager('noone-iframe', prod_url)
+  const iframe = new IframeManager('noone-iframe', dev_url)
   dataFromIframe.loaded = await iframe.render()
   evmConnector.value = new EvmConnector(iframe)
   walletConnector.value = new WalletConnector(iframe)
@@ -62,6 +63,8 @@ onMounted(async () => {
       <test-sign-msg :connector="evmConnector"></test-sign-msg>
       <v-divider></v-divider>
       <test-sign-tx :connector="evmConnector"></test-sign-tx>
+      <v-divider></v-divider>
+      <test-chain-ids :connector="evmConnector"></test-chain-ids>
       <v-divider></v-divider>
       <test-block-number :connector="evmConnector"></test-block-number>
       <v-divider></v-divider>
