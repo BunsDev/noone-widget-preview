@@ -1,18 +1,6 @@
 # noone-widget-preview
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+This [website](https://noonewallet.github.io/noone-widget-preview/) demonstrates the functionality of the library [@noonewallet/widget-communicator](https://github.com/noonewallet/widget-communicator). You can access the online version by following the link.
 
 ## Project Setup
 
@@ -37,3 +25,12 @@ npm run build
 ```sh
 npm run lint
 ```
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## License
+
+`noone-widget-preview` is available under the MIT license. See
+the [LICENSE](https://github.com/noonewallet/noone-widget-preview/blob/main/LICENSE) file for more info.
