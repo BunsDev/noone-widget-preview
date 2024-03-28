@@ -1,6 +1,6 @@
 # noone-widget-preview
 
-This [website](https://noonewallet.github.io/noone-widget-preview/) demonstrates the functionality of the library [@noonewallet/widget-communicator](https://github.com/noonewallet/widget-communicator). You can access the online version by following the link.
+This [website](https://noonewallet.github.io/noone-widget-preview/) demonstrates the functionality of the library [@noonewallet/widget-communicator](https://github.com/noonewallet/widget-communicator).
 
 ## Project Setup
 

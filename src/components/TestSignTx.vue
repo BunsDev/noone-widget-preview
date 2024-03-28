@@ -28,11 +28,8 @@ const code = computed(() => {
 })
 const triggerEvent = async () => {
   if (!props.connector || !props.connector) return console.error('EvmConnector is not initialized')
-  console.log('tx', tx.value.replace(/'/g, '"'))
   const fixedStr = tx.value.replace(/'/g, '"').replace(/(\w+):/g, '"$1":');
-  console.log('fixedStr', fixedStr)
   const processedTx = JSON.parse(fixedStr)
-  console.log('processedTx', processedTx)
   const result = await props.connector.send({
     chainId: 1,
     method: 'signTransaction',

@@ -6,12 +6,13 @@ import TestBlockNumber from './components/TestBlockNumber.vue'
 import TestNonce from './components/TestNonce.vue'
 import TestSignMsg from './components/TestSignMsg.vue'
 import TestSignTx from './components/TestSignTx.vue'
-import {EvmConnector, IframeManager} from '@noonewallet/widget-communicator'
-
+import {EvmConnector, IframeManager, WalletConnector} from '@noonewallet/widget-communicator'
 const evmConnector = ref<EvmConnector | null>(null)
+const walletConnector = ref<WalletConnector | null>(null)
 const dataFromIframe = reactive({
   loaded: false
 })
+const lastTriggeredEvent = ref<string>('')
 const dev_url = 'http://localhost:8080/'
 const prod_url = 'https://crypto-widget.noone.io/'
 
@@ -19,6 +20,19 @@ onMounted(async () => {
   const iframe = new IframeManager('noone-iframe', dev_url)
   dataFromIframe.loaded = await iframe.render()
   evmConnector.value = new EvmConnector(iframe)
+  walletConnector.value = new WalletConnector(iframe)
+  walletConnector.value.listen('logout', (data) => {
+    console.log('trigger - logout', data)
+    lastTriggeredEvent.value = 'logout'
+  })
+  walletConnector.value.listen('login', (data) => {
+    console.log('trigger - login', data)
+    lastTriggeredEvent.value = 'login'
+  })
+  walletConnector.value.listen('switch-wallet', (data) => {
+    console.log('trigger - switch-wallet', data)
+    lastTriggeredEvent.value = 'switch-wallet'
+  })
 })
 </script>
 
@@ -32,7 +46,8 @@ onMounted(async () => {
       </v-sheet>
       <v-row align="center">
         <v-col>
-          <h2>Iframe loaded: {{ dataFromIframe.loaded }}</h2>
+          <h3>Iframe loaded: {{ dataFromIframe.loaded }}</h3>
+          <h3>Triggered event: {{ lastTriggeredEvent }}</h3>
         </v-col>
         <v-col>
           <p>Project on <a href="https://github.com/noonewallet/noone-widget-preview" target="_blank">Github
