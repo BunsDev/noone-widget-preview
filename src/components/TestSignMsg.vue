@@ -5,6 +5,7 @@ import {EvmConnector, type IErrorResponse} from '@noonewallet/widget-communicato
 
 const props = defineProps<{
   connector: EvmConnector
+  chain: number
 }>()
 
 let error = ref<IErrorResponse | null>(null)
@@ -15,7 +16,7 @@ const data = reactive({
 
 const code = computed(() => {
   return `const result = await props.connector.send({
-    chainId: 1,
+    chainId: ${props.chain},
     method: 'signMessage',
     params: '${message.value}'
 })`
@@ -23,7 +24,7 @@ const code = computed(() => {
 const triggerEvent = async () => {
   if (!props.connector || !props.connector) return console.error('EvmConnector is not initialized')
   const result = await props.connector.send({
-    chainId: 1,
+    chainId: props.chain,
     method: 'signMessage',
     params: message.value
   })

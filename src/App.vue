@@ -7,18 +7,26 @@ import TestNonce from './components/TestNonce.vue'
 import TestSignMsg from './components/TestSignMsg.vue'
 import TestSignTx from './components/TestSignTx.vue'
 import TestChainIds from './components/TestChainIds.vue'
+import ChainSelector from './components/ChainSelector.vue'
 import {EvmConnector, IframeManager, WalletConnector} from '@noonewallet/widget-communicator'
+
 const evmConnector = ref<EvmConnector | null>(null)
 const walletConnector = ref<WalletConnector | null>(null)
 const dataFromIframe = reactive({
   loaded: false
 })
+
 const lastTriggeredEvent = ref<string>('')
 const dev_url = 'http://localhost:8080/'
 const prod_url = 'https://crypto-widget.noone.io/'
+let chains = reactive([{
+  title: 1,
+  subtitle: 'Ethereum'
+}])
+let selectedChain = ref(1)
 
 onMounted(async () => {
-  const iframe = new IframeManager('noone-iframe', dev_url)
+  const iframe = new IframeManager('noone-iframe', prod_url)
   dataFromIframe.loaded = await iframe.render()
   evmConnector.value = new EvmConnector(iframe)
   walletConnector.value = new WalletConnector(iframe)
@@ -29,12 +37,31 @@ onMounted(async () => {
   walletConnector.value.listen('login', (data) => {
     console.log('trigger - login', data)
     lastTriggeredEvent.value = 'login'
+    setTimeout(() => {
+      getChains()
+    }, 2000)
   })
   walletConnector.value.listen('switch-wallet', (data) => {
     console.log('trigger - switch-wallet', data)
     lastTriggeredEvent.value = 'switch-wallet'
   })
 })
+
+const getChains = async () => {
+  const result = await evmConnector.value.send({
+    chainId: 1,
+    method: 'getChains'
+  })
+  if (result.success) {
+    chains = Object.assign(chains, result.data)
+    console.log('chains', chains)
+  }
+}
+
+const selectChain = (chain) => {
+  console.log('selectChain', chain)
+  selectedChain.value = chain
+}
 </script>
 
 <template>
@@ -56,19 +83,20 @@ onMounted(async () => {
           </a></p>
         </v-col>
       </v-row>
-      <test-address :connector="evmConnector"></test-address>
+      <chain-selector :chains="chains" @select-chain="selectChain"></chain-selector>
+      <test-address :connector="evmConnector" :chain="selectedChain"></test-address>
       <v-divider></v-divider>
-      <test-balance :connector="evmConnector"></test-balance>
+      <test-balance :connector="evmConnector" :chain="selectedChain"></test-balance>
       <v-divider></v-divider>
-      <test-sign-msg :connector="evmConnector"></test-sign-msg>
+      <test-sign-msg :connector="evmConnector" :chain="selectedChain"></test-sign-msg>
       <v-divider></v-divider>
-      <test-sign-tx :connector="evmConnector"></test-sign-tx>
+      <test-sign-tx :connector="evmConnector" :chain="selectedChain"></test-sign-tx>
       <v-divider></v-divider>
-      <test-chain-ids :connector="evmConnector"></test-chain-ids>
+      <test-chain-ids :connector="evmConnector" :chain="selectedChain"></test-chain-ids>
       <v-divider></v-divider>
-      <test-block-number :connector="evmConnector"></test-block-number>
+      <test-block-number :connector="evmConnector" :chain="selectedChain"></test-block-number>
       <v-divider></v-divider>
-      <test-nonce :connector="evmConnector"></test-nonce>
+      <test-nonce :connector="evmConnector" :chain="selectedChain"></test-nonce>
       <v-divider></v-divider>
     </v-col>
     <v-col>

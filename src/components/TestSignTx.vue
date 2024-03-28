@@ -2,9 +2,11 @@
 import {reactive, ref, computed} from 'vue'
 import TestTemplate from './TestTemplate.vue'
 import {EvmConnector, type IErrorResponse} from '@noonewallet/widget-communicator'
+import {pt} from "vuetify/locale";
 
 const props = defineProps<{
   connector: EvmConnector
+  chain: number
 }>()
 
 let error = ref<IErrorResponse | null>(null)
@@ -21,7 +23,7 @@ const data = reactive({
 
 const code = computed(() => {
   return `const result = await props.connector.send({
-    chainId: 1,
+    chainId: ${props.chain},
     method: 'signTransaction',
     params: '${tx.value}'
 })`
@@ -31,7 +33,7 @@ const triggerEvent = async () => {
   const fixedStr = tx.value.replace(/'/g, '"').replace(/(\w+):/g, '"$1":');
   const processedTx = JSON.parse(fixedStr)
   const result = await props.connector.send({
-    chainId: 1,
+    chainId: props.chain,
     method: 'signTransaction',
     params: processedTx
   })
