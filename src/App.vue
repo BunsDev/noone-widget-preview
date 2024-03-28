@@ -17,7 +17,7 @@ const dev_url = 'http://localhost:8080/'
 const prod_url = 'https://crypto-widget.noone.io/'
 
 onMounted(async () => {
-  const iframe = new IframeManager('noone-iframe', dev_url)
+  const iframe = new IframeManager('noone-iframe', prod_url)
   dataFromIframe.loaded = await iframe.render()
   evmConnector.value = new EvmConnector(iframe)
   walletConnector.value = new WalletConnector(iframe)
