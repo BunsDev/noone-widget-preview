@@ -15,5 +15,8 @@ export default defineConfig({
     },
     preserveSymlinks: true
   },
-  base: '/noone-widget-preview/'
+  base: '/noone-widget-preview/',
+  preview: {
+    port: 5173
+  }
 })

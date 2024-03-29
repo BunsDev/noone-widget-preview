@@ -7,6 +7,7 @@ import TestNonce from './components/TestNonce.vue'
 import TestSignMsg from './components/TestSignMsg.vue'
 import TestSignTx from './components/TestSignTx.vue'
 import TestChainIds from './components/TestChainIds.vue'
+import TestGasPrice from './components/TestGasPrice.vue'
 import ChainSelector from './components/ChainSelector.vue'
 import {EvmConnector, IframeManager, WalletConnector} from '@noonewallet/widget-communicator'
 
@@ -97,6 +98,8 @@ const selectChain = (chain) => {
       <test-block-number :connector="evmConnector" :chain="selectedChain"></test-block-number>
       <v-divider></v-divider>
       <test-nonce :connector="evmConnector" :chain="selectedChain"></test-nonce>
+      <v-divider></v-divider>
+      <test-gas-price :connector="evmConnector" :chain="selectedChain"></test-gas-price>
       <v-divider></v-divider>
     </v-col>
     <v-col>
