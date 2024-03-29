@@ -55,12 +55,10 @@ const getChains = async () => {
   })
   if (result.success) {
     chains = Object.assign(chains, result.data)
-    console.log('chains', chains)
   }
 }
 
 const selectChain = (chain) => {
-  console.log('selectChain', chain)
   selectedChain.value = chain
 }
 </script>
@@ -103,7 +101,7 @@ const selectChain = (chain) => {
       <v-divider></v-divider>
     </v-col>
     <v-col>
-      <v-sheet class="pa-2 ma-2">
+      <v-sheet class="pa-2 ma-2 sticky">
         <div id="noone-iframe"></div>
       </v-sheet>
     </v-col>
@@ -121,5 +119,10 @@ main {
 
 a:hover {
   text-decoration: none;
+}
+
+.sticky {
+  position: sticky;
+  top: 16px;
 }
 </style>
